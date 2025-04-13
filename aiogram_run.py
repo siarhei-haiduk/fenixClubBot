@@ -25,7 +25,7 @@ async def main():
     # scheduler.add_job(advertising, 'interval', seconds=15*60, kwargs={'bot': bot})
     # scheduler.add_job(mentioning, 'interval', seconds=1*12, kwargs={'bot': bot})
     # scheduler.start()
-    dp.include_routers(cinema, user, admin)
+    dp.include_routers(user, admin, cinema)
     # dp.include_routers(start_router)
     dp.startup.register(start_bot)
 

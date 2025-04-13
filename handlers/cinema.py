@@ -5,7 +5,7 @@ from aiogram.types import CallbackQuery, Message
 import keyboards.inline_kbs as kb
 import texts as t
 from db_handlers.db_class import get_film, add_film
-from states.states import Cinema
+from states.states import Cinema, Event
 
 cinema = Router()
 
@@ -66,13 +66,13 @@ async def film_info(callback: CallbackQuery):
 @cinema.callback_query(Cinema.films, F.data == 'back')
 async def film_back(callback: CallbackQuery, state: FSMContext):
     await callback.message.edit_reply_markup(reply_markup=None)
-    await state.set_state(Cinema.info)
     await callback.message.answer('Подробная информация про кинопоказы', reply_markup=kb.cinema)
+    await state.set_state(Cinema.info)
 
 
-@cinema.callback_query(Cinema.name, F.data == 'back')
-async def cmd_back_to_cinema(call: CallbackQuery, state: FSMContext):
+@cinema.callback_query(Cinema.info, F.data == 'back')
+async def cmd_back_to_events(call: CallbackQuery, state: FSMContext):
     # await print_state(call.message, state) # DEBUG
-    await state.clear()
     await call.message.edit_reply_markup(reply_markup=None)
-    await call.message.answer('Возврат в главное меню', reply_markup=kb.main)
+    await call.message.answer('Возврат в меню мероприятий', reply_markup=kb.events)
+    await state.set_state(Event.cinema)

@@ -3,9 +3,8 @@ from sqlalchemy.dialects.postgresql import Any
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 from sqlalchemy.ext.asyncio import AsyncAttrs, async_sessionmaker, create_async_engine
 
-from config import DB_URL
 
-engine = create_async_engine(url=DB_URL,
+engine = create_async_engine(url='sqlite+aiosqlite:///db.sqlite3',
                              echo=True)
 
 async_session = async_sessionmaker(engine)

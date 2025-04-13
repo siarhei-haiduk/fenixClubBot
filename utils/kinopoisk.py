@@ -2,18 +2,18 @@ import asyncio
 from asyncopoisk import KinopoiskAPI
 from asyncopoisk.models.enums import SearchOrder, SearchFilmType, FilmType
 
-from config import KINOPOISK_TOKEN
+from create_bot import kinopoisk_token
 
 
 async def get_film_by_id(kp_id: int):
-    kp = KinopoiskAPI(token=KINOPOISK_TOKEN)
+    kp = KinopoiskAPI(token=kinopoisk_token)
     # Получаем фильм по id
     film = await kp.films(kp_id)
     return film
 
 
 async def get_film_by_name(name: str):
-    kp = KinopoiskAPI(token=KINOPOISK_TOKEN)
+    kp = KinopoiskAPI(token=kinopoisk_token)
     # Получаем фильм по имени
     film = await kp.films.search_by_keyword(keyword=name)
     return film.films[0]
