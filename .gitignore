@@ -3,5 +3,4 @@
 /.git
 **/__pycache__
 db.sqlite3
-config.py
 .env
